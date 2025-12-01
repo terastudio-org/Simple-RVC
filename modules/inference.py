@@ -16,6 +16,7 @@ from modules.pipeline import Pipeline
 from modules.utils import clear_gpu_cache
 from modules.synthesizers import Synthesizer
 from modules.utils import check_predictors, check_embedders, load_audio
+import logging
 
 for l in ["torch", "faiss", "omegaconf", "httpx", "httpcore", "faiss.loader", "numba.core", "urllib3", "transformers", "matplotlib"]:
     logging.getLogger(l).setLevel(logging.ERROR)
@@ -60,7 +61,7 @@ def separate_audio_tracks(
     
     try:
         # Initialize separator
-        separator = Separator(output_dir=output_dir)
+        separator = Separator(output_dir=output_dir, log_level=logging.WARNING)
         
         # Step 1: Splitting into Vocal and Instrumental
         print("Step 1: Separating vocals and instrumental...")
